@@ -128,32 +128,21 @@ x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index)
 
 x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index)
 {
-	char * tmp1;
+	char * tmp;
 	x_error_t err;
 
-	tmp1 = strdup(*dest);
-	if (tmp1 == NULL) return XE_ALLOC;
+	tmp = strdup(*dest);
+	if (tmp == NULL) return XE_ALLOC;
 
-	if (index == 0)
-	{
-		err = xstr_cpy_c(dest, src);
-		if (err != XE_NONE) return err;
+	tmp[index] = 0;
 
-		err = xstr_cat_c(dest, tmp1);
-		if (err == XE_NONE) free(tmp1);
-
-		return err;
-	}
-
-	tmp1[index] = 0;
-
-	err = xstr_cpy_c(dest, tmp1);
+	err = xstr_cpy_c(dest, tmp);
 	if (err != XE_NONE) return err;
 	err = xstr_cat_c(dest, src);
 	if (err != XE_NONE) return err;
-	err = xstr_cat_c(dest, tmp1 + index + 1);
+	err = xstr_cat_c(dest, tmp + index + 1);
 
-	free(tmp1);
+	free(tmp);
 
 	return err;
 }
@@ -165,15 +154,20 @@ x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end)
 	x_error_t err;
 
 	(*dest)[start] = 0;
+
 	tmp1 = strdup(*dest);
 	if (tmp1 == NULL) return XE_ALLOC;
 
-	tmp2 = strdup(*(dest) + end + 1);
-	if (tmp2 == NULL) return XE_ALLOC;
+	tmp2 = strdup(*(dest) + end);
+	if (tmp2 == NULL) { free(tmp1); return XE_ALLOC; }
 
 	err = xstr_cpy_c(dest, tmp1);
-	if (err != XE_NONE) return err;
+	if (err != XE_NONE) { free(tmp1); free(tmp2); return err; }
+
 	xstr_cat_c(dest, tmp2);
+
+	free(tmp1);
+	free(tmp2);
 
 	return err;
 }
