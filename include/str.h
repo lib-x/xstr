@@ -20,6 +20,8 @@ typedef enum
 {
 	XE_NONE = 0,
 	XE_ALLOC,
+	XE_DUP,
+	XE_NORANGE,
 	XE_OTHER
 } x_error_t;
 
