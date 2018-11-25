@@ -21,6 +21,6 @@ then
 	install xstr.h "/usr/local/include/libx/"
 	echo "Done."
 else
-	echo "Usage: $0 <local|install>"
+	echo "Usage: $0 <install>"
 	exit 1
 fi
