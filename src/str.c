@@ -133,6 +133,18 @@ x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index)
 
 	tmp1 = strdup(*dest);
 	if (tmp1 == NULL) return XE_ALLOC;
+
+	if (index == 0)
+	{
+		err = xstr_cpy_c(dest, src);
+		if (err != XE_NONE) return err;
+
+		err = xstr_cat_c(dest, tmp1);
+		if (err == XE_NONE) free(tmp1);
+
+		return err;
+	}
+
 	tmp1[index] = 0;
 
 	err = xstr_cpy_c(dest, tmp1);
@@ -156,8 +168,8 @@ x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end)
 	tmp1 = strdup(*dest);
 	if (tmp1 == NULL) return XE_ALLOC;
 
-	tmp2 = strdup(*(dest + end + 1));
-	if (tmp1 == NULL) return XE_ALLOC;
+	tmp2 = strdup(*(dest) + end + 1);
+	if (tmp2 == NULL) return XE_ALLOC;
 
 	err = xstr_cpy_c(dest, tmp1);
 	if (err != XE_NONE) return err;
