@@ -3,12 +3,15 @@
 
 int main(void)
 {
-	xstr_t thing;
+	xstr_t thing = NULL;
+	x_error_t error;
 
-	thing = xstr_init(0); /* Capacity will auto-change, but it's faster if you set it ahead of time */
-	if (thing == NULL) return 1;
-	thing = xstr_set(thing, "uwu");
-	thing = xstr_cat_c(thing, "uwu");
+	error = xstr_init(&thing, 0); /* Capacity will auto-change, but it's faster if you set it ahead of time */
+	if (error != XE_NONE) return 1;
+	error = xstr_set(thing, "uwu");
+	if (error != XE_NONE) return 1;
+	error = xstr_cat_c(thing, "uwu");
+	if (error != XE_NONE) return 1;
 
 	puts(*thing);
 

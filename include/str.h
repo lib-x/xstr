@@ -16,43 +16,48 @@ struct
 
 char typedef ** xstr_t;
 
-enum
+typedef enum
 {
-	XE_ALLOC = INT_MIN,
+	XE_NONE = 0,
+	XE_ALLOC,
 	XE_OTHER
-} x_error;
+} x_error_t;
 
 /* Functions and stuff */
-xstr_t xstr_init(uint16_t size);
+x_error_t xstr_init(xstr_t * dest, uint16_t size);
 
-xstr_t xstr_set(xstr_t dest, const char * src);
+x_error_t xstr_set(xstr_t dest, const char * src);
 
-xstr_t xstr_cpy(xstr_t dest, xstr_t src);
+x_error_t xstr_cpy(xstr_t dest, xstr_t src);
 
-xstr_t xstr_cat(xstr_t dest, xstr_t src);
+x_error_t xstr_cat(xstr_t dest, xstr_t src);
 
-xstr_t xstr_cat_c(xstr_t dest, const char * src);
+x_error_t xstr_cat_c(xstr_t dest, const char * src);
 
-inline xstr_t str_init_set(const char * src);
+inline x_error_t str_init_set(xstr_t dest, const char * src);
 
-inline xstr_t xstr_free(xstr_t src);
+inline x_error_t xstr_free(xstr_t src);
 
 /* Inline functions */
-inline xstr_t str_init_set(const char * src)
+inline x_error_t str_init_set(xstr_t dest, const char * src)
 {
 	_xstr_t str;
 
-	str = (_xstr_t) (xstr_init(strlen(src)));
+	str = NULL;
+
+	xstr_init((xstr_t *) &str, strlen(src));
 
 	if (str->val != NULL)
 	{
 		strcpy(str->val, src);
 	}
 
-	return (xstr_t) str;
+	dest = (xstr_t) str;
+
+	return XE_NONE;
 }
 
-inline xstr_t xstr_free(xstr_t src)
+inline x_error_t xstr_free(xstr_t src)
 {
 	_xstr_t _src;
 
@@ -62,7 +67,7 @@ inline xstr_t xstr_free(xstr_t src)
 	_src->cap = 0;
 	_src->val = NULL;
 
-	return (xstr_t) _src;
+	return XE_NONE;
 }
 
 #endif

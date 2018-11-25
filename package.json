@@ -1,0 +1,14 @@
+{
+	"name" : "libx",
+	"version" : "0.01",
+	"repo" : "The-Sushi/libx",
+	"description" : "A library to make C a bit easier.  Contains common things like strings, lists, etc",
+	"keywords" : ["string", "list", "pattern", "easy", "utilities", "utility", "util", "utils"],
+	"license" : "CC0"
+	"src" :
+		[
+			"src/str.c",
+			"include/str.h"
+		],
+	"install" : "./build.sh && ./build.sh install"
+}
