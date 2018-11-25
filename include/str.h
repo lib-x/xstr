@@ -26,20 +26,26 @@ typedef enum
 /* Functions and stuff */
 x_error_t xstr_init(xstr_t * dest, uint16_t size);
 
-x_error_t xstr_set(xstr_t dest, const char * src);
-
 x_error_t xstr_cpy(xstr_t dest, xstr_t src);
+
+x_error_t xstr_cpy_c(xstr_t dest, char * src);
 
 x_error_t xstr_cat(xstr_t dest, xstr_t src);
 
-x_error_t xstr_cat_c(xstr_t dest, const char * src);
+x_error_t xstr_cat_c(xstr_t dest, char * src);
 
-inline x_error_t str_init_set(xstr_t dest, const char * src);
+inline x_error_t str_init_set(xstr_t dest, char * src);
 
 inline x_error_t xstr_free(xstr_t src);
 
+x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index);
+
+x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index);
+
+x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end);
+
 /* Inline functions */
-inline x_error_t str_init_set(xstr_t dest, const char * src)
+inline x_error_t str_init_set(xstr_t dest, char * src)
 {
 	_xstr_t str;
 
@@ -64,8 +70,7 @@ inline x_error_t xstr_free(xstr_t src)
 	_src = (_xstr_t) src;
 
 	free(_src->val);
-	_src->cap = 0;
-	_src->val = NULL;
+	free(_src);
 
 	return XE_NONE;
 }
