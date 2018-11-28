@@ -5,6 +5,5 @@
 	"description" : "A simpler string library for C",
 	"keywords" : ["xstr", "string", "str", "strings", "list", "simple", "utilities", "utility", "util", "utils"],
 	"license" : "CC0",
-	"src" : ["src/str.c", "include/str.h"],
-	"install" : "./build.sh && ./build.sh install"
+	"src" : ["src/str.c", "include/str.h"]
 }
