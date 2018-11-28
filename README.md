@@ -6,6 +6,15 @@
 - You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
 - Works with C90/C89, not just C99
 
+## Why not to use this library:
+
+- You don't have libc available
+- You're using a custom allocator
+- You're have no allocator
+- You need really high performance
+- You're a programming-masochist
+- You're using Python
+
 ## Example:
 
 ```
