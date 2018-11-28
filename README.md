@@ -89,6 +89,7 @@ typedef enum
 	XE_ALLOC,
 	XE_DUP,
 	XE_NORANGE,
+	XE_OVERFLOW,
 	XE_OTHER
 } x_error_t;
 ```
@@ -109,8 +110,8 @@ typedef char ** xstr_t;
 typedef struct
 {
 	char * val;
-	uint16_t cap;
-	uint16_t len;
+	size_t cap;
+	size_t len;
 } * _xstr_t;
 ```
 
@@ -128,7 +129,7 @@ Get length of an xstring
 ### Functions:
 
 ```
-x_error_t xstr_init(xstr_t * dest, uint16_t size);
+x_error_t xstr_init(xstr_t * dest, size_t size);
 ```
 Initializes an xstring
 
@@ -170,21 +171,21 @@ Appends a C-string to an xstring.
 ----
 
 ```
-x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index);
+x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index);
 ```
 Inserts an xstring into another xstring at specified index
 
 ----
 
 ```
-x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index);
+x_error_t xstr_insert_c(xstr_t dest, char * src, size_t index);
 ```
 Inserts aa C-string into an xstring at specified index
 
 ----
 
 ```
-x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end);
+x_error_t xstr_delete(xstr_t dest, size_t start, size_t end);
 ```
 Deletes part of an xstring. (from index of start until end)
 
