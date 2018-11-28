@@ -1,12 +1,12 @@
 # xstr: A simpler string library
 
-## Why choose this over other string libraries?
+## Why to use this over other string libraries
 
 - It's public domain
 - You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
 - Works with C90/C89, not just C99
 
-## Why not to use this library:
+## Why not to use this library
 
 - You don't have libc available
 - You're using a custom allocator
