@@ -4,7 +4,7 @@
 
 - It's public domain
 - You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
-- Works with C90/C89, not just C99
+- Mostly compatible with C90/C89, not just C99
 
 ## Why not to use this library
 

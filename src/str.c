@@ -3,13 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <stddef.h>
 #include <limits.h>
 
 #define X_CHECK_ALLOC(dest)    if ((dest).val == NULL) {return XE_ALLOC;}
 
-x_error_t xstr_init(xstr_t * dest, uint16_t size)
+x_error_t xstr_init(xstr_t * dest, size_t size)
 {
 	_xstr_t str;
+
+	if (size == SIZE_MAX) return XE_OVERFLOW;
 
 	str = malloc(sizeof (_xstr_t));
 
@@ -49,14 +52,22 @@ x_error_t xstr_cpy(xstr_t dest, xstr_t src)
 {
 	_xstr_t _dest;
 	_xstr_t _src;
+	size_t cap;
 
 	_dest = (_xstr_t) dest;
 	_src  = (_xstr_t) src;
 
 	if (_dest->cap < _src->len)
 	{
-		_dest->val = realloc(_dest->val, _src->len + 1);
+		if (_src->len < (SIZE_MAX / 2))
+			cap = _src->len * 2;
+		else /* Overflow */
+			cap = _src->len;
+		/**/
+
+		_dest->val = realloc(_dest->val, cap);
 		X_CHECK_ALLOC(*_dest);
+		_dest->cap = cap;
 	}
 
 	strcpy(_dest->val, _src->val);
@@ -67,7 +78,8 @@ x_error_t xstr_cpy(xstr_t dest, xstr_t src)
 
 x_error_t xstr_cpy_c(xstr_t dest, char * src)
 {
-	uint16_t ssize;
+	size_t ssize;
+	size_t cap;
 	_xstr_t _dest;
 
 	_dest = (_xstr_t) dest;
@@ -75,8 +87,15 @@ x_error_t xstr_cpy_c(xstr_t dest, char * src)
 
 	if (_dest->cap < ssize)
 	{
-		_dest->val = realloc(_dest->val, ssize + 1);
+		if (ssize < (SIZE_MAX) / 2)
+			cap = ssize * 2;
+		else /* Overflow */
+			cap = ssize;
+		/**/
+
+		_dest->val = realloc(_dest->val, ssize * 2);
 		X_CHECK_ALLOC(*_dest);
+		_dest->cap = ssize * 2;
 	}
 
 	strcpy(_dest->val, src);
@@ -89,16 +108,25 @@ x_error_t xstr_cat(xstr_t dest, xstr_t src)
 {
 	_xstr_t _dest;
 	_xstr_t _src;
+	size_t cap;
 
 	_dest = (_xstr_t) dest;
 	_src  = (_xstr_t) src;
 
+	if (_dest->len > SIZE_MAX - _src->len) return XE_OVERFLOW;
+
 	if (_dest->cap < _src->len + _dest->len) /* No need for addition end-of-string nil byte */
 	{
-		_dest->val = realloc(_dest->val, _src->len + _dest->len + 1);
+		if (_dest->len + _src->len < (size_t) (SIZE_MAX / 1.5))
+			cap = _src->len + _dest->len;
+		else /* Overflow */
+			cap = (size_t) (1.5 * (_src->len + _dest->len));
+		/**/
+
+		_dest->val = realloc(_dest->val, cap);
 		X_CHECK_ALLOC(*_dest);
 
-		_dest->cap = _src->len + _dest->len;
+		_dest->cap = cap;
 	}
 
 	strcat(_dest->val, _src->val);
@@ -109,18 +137,27 @@ x_error_t xstr_cat(xstr_t dest, xstr_t src)
 
 x_error_t xstr_cat_c(xstr_t dest, char * src)
 {
-	uint16_t slen;
+	size_t slen;
+	size_t cap;
 	_xstr_t _dest;
 
 	_dest = (_xstr_t) dest;
 	slen = strlen(src);
 
+	if (_dest->len > SIZE_MAX - slen) return XE_OVERFLOW;
+
 	if (_dest->cap < slen + _dest->len)
 	{
-		_dest->val = realloc(_dest->val, slen + _dest->cap + 1);
+		if (_dest->len + slen < (size_t) (SIZE_MAX / 1.5))
+			cap = slen + _dest->len;
+		else /* Overflow */
+			cap = (size_t) (1.5 * (slen + _dest->len));
+		/**/
+
+		_dest->val = realloc(_dest->val, cap);
 		X_CHECK_ALLOC(*_dest);
 
-		_dest->cap = slen + _dest->cap;
+		_dest->cap = cap;
 	}
 
 	strcat(_dest->val, src);
@@ -129,7 +166,7 @@ x_error_t xstr_cat_c(xstr_t dest, char * src)
 	return XE_NONE;
 }
 
-x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index)
+x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index)
 {
 	char * tmp;
 	x_error_t err;
@@ -149,7 +186,7 @@ x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index)
 	return err;
 }
 
-x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index)
+x_error_t xstr_insert_c(xstr_t dest, char * src, size_t index)
 {
 	char * tmp;
 	x_error_t err;
@@ -170,7 +207,7 @@ x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index)
 	return err;
 }
 
-x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end)
+x_error_t xstr_delete(xstr_t dest, size_t start, size_t end)
 {
 	char * tmp1;
 	char * tmp2;
@@ -204,14 +241,22 @@ x_error_t xstr_push(xstr_t dest, char ch)
 
 	_dest = (_xstr_t) dest;
 
+	if (_dest->len == SIZE_MAX) return XE_OVERFLOW;
+
 	if (_dest->cap > _dest->len + 1)
 	{
 		_dest->len++;
 		_dest->val[_dest->len - 1] = ch;
+		_dest->val[_dest->len] = 0;
 		return XE_NONE;
 	}
 
-	tmp = realloc(_dest->val, _dest->cap + 16);
+	if (_dest->cap < SIZE_MAX / 2)
+		tmp = realloc(_dest->val, _dest->cap * 2);
+	else
+		tmp = realloc(_dest->val, _dest->cap);
+	/**/
+
 	if (tmp == NULL)
 	{
 
@@ -222,7 +267,7 @@ x_error_t xstr_push(xstr_t dest, char ch)
 
 	_dest->val = tmp;
 
-	_dest->cap += 16;
+	_dest->cap *= 2;
 	_dest->len++;
 
 	_dest->val[_dest->len - 1] = ch;
