@@ -60,11 +60,15 @@ typedef enum
 ```
 All functions return this.
 
+----
+
 
 #### xstr_t
 ```
 typedef char ** xstr_t;
 ```
+
+----
 
 #### _xstr_t
 ```
@@ -78,6 +82,7 @@ typedef struct
 
 Internal representation of an xstr.
 
+
 ### Macros:
 
 ```
@@ -85,7 +90,6 @@ Internal representation of an xstr.
 ```
 Get length of an xstring
 
-----
 
 ### Functions:
 
