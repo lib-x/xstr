@@ -85,57 +85,79 @@ Internal representation of an xstr.
 ```
 Get length of an xstring
 
+----
+
 ### Functions:
 
 ```
 x_error_t xstr_init(xstr_t * dest, uint16_t size);
 ```
-Initializes an xstring.
+Initializes an xstring
+
+----
 
 ```
 x_error_t str_init_set(xstr_t dest, char * src);
 ```
-Initializes and sets an xstring.
+Initializes and sets an xstring
+
+----
 
 ```
 x_error_t xstr_cpy(xstr_t dest, xstr_t src);
 ```
 Copies one xstring to another
 
+----
+
 ```
 x_error_t xstr_cpy_c(xstr_t dest, char * src);
 ```
 Copies a C-string to an xstring
+
+----
 
 ```
 x_error_t xstr_cat(xstr_t dest, xstr_t src);
 ```
 Append to an xstring
 
+----
+
 ```
 x_error_t xstr_cat_c(xstr_t dest, char * src);
 ```
 Appends a C-string to an xstring.
+
+----
 
 ```
 x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index);
 ```
 Inserts an xstring into another xstring at specified index
 
+----
+
 ```
 x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index);
 ```
 Inserts aa C-string into an xstring at specified index
+
+----
 
 ```
 x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end);
 ```
 Deletes part of an xstring. (from index of start until end)
 
+----
+
 ```
 x_error_t xstr_push(xstr_t dest, char ch);
 ```
 Appends a character to an xstring
+
+----
 
 ```
 x_error_t xstr_free(xstr_t src);
