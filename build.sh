@@ -24,7 +24,7 @@ then
 
 	echo "Copying files"
 	install xstr.o "/usr/local/lib/libx/"
-	install xstr.h "/usr/local/include/libx/"
+	install src/xstr.h "/usr/local/include/libx/"
 	echo "Done."
 elif [ "$1" == "example" ]
 then

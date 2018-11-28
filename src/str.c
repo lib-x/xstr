@@ -1,4 +1,4 @@
-#include "../include/str.h"
+#include "str.h"
 
 #define X_CHECK_ALLOC(dest)    if ((dest).val == NULL) {return XE_ALLOC;}
 
