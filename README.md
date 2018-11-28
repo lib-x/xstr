@@ -51,7 +51,7 @@ int main(void)
 ```
 typedef enum
 {
-	XE_NONE = 0,
+	XE_NONE,
 	XE_ALLOC,
 	XE_DUP,
 	XE_NORANGE,

@@ -1,4 +1,4 @@
-#include "include/str.h"
+#include "src/str.h"
 #include <stdio.h>
 
 #define ER  error =
