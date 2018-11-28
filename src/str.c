@@ -1,5 +1,10 @@
 #include "str.h"
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+#include <limits.h>
+
 #define X_CHECK_ALLOC(dest)    if ((dest).val == NULL) {return XE_ALLOC;}
 
 x_error_t xstr_init(xstr_t * dest, uint16_t size)

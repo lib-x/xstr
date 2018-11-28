@@ -1,10 +1,7 @@
 #ifndef _XSTR_H
 #define _XSTR_H
 
-#include <stdlib.h>
-#include <string.h>
 #include <stdint.h>
-#include <limits.h>
 
 /* Types and stuff */
 typedef struct
