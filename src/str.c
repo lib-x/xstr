@@ -10,7 +10,7 @@ x_error_t xstr_init(xstr_t * dest, uint16_t size)
 
 	if (size == 0) size = 63;
 
-	str->val = malloc(size + 1); // String size + '\0'
+	str->val = malloc(size + 1); /* String size + '\0' */
 
 	X_CHECK_ALLOC(*str);
 
@@ -18,6 +18,24 @@ x_error_t xstr_init(xstr_t * dest, uint16_t size)
 	str->len = 0;
 
 	*dest = (xstr_t) str;
+
+	return XE_NONE;
+}
+
+x_error_t xstr_init_set(xstr_t dest, char * src)
+{
+	_xstr_t str;
+
+	str = NULL;
+
+	xstr_init((xstr_t *) &str, strlen(src));
+
+	if (str->val != NULL)
+	{
+		strcpy(str->val, src);
+	}
+
+	dest = (xstr_t) str;
 
 	return XE_NONE;
 }
@@ -203,6 +221,18 @@ x_error_t xstr_push(xstr_t dest, char ch)
 	_dest->len++;
 
 	_dest->val[_dest->len - 1] = ch;
+
+	return XE_NONE;
+}
+
+x_error_t xstr_free(xstr_t src)
+{
+	_xstr_t _src;
+
+	_src = (_xstr_t) src;
+
+	free(_src->val);
+	free(_src);
 
 	return XE_NONE;
 }
