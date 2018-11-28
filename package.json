@@ -1,9 +1,9 @@
 {
 	"name" : "xstr",
-	"version" : "0.01",
-	"repo" : "The-Sushi/xstr",
+	"version" : "0.0.1",
+	"repo" : "the-sushi/xstr",
 	"description" : "A simpler string library for C",
-	"keywords" : ["string", "str", "strings", "list", "simple", "utilities", "utility", "util", "utils"],
+	"keywords" : ["xstr", "string", "str", "strings", "list", "simple", "utilities", "utility", "util", "utils"],
 	"license" : "CC0"
 	"src" :
 		[
