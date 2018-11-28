@@ -108,20 +108,20 @@ x_error_t xstr_cat_c(xstr_t dest, char * src)
 
 x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index)
 {
-	char * tmp1;
+	char * tmp;
 	x_error_t err;
 
-	tmp1 = strdup(*dest);
-	if (tmp1 == NULL) return XE_DUP;
-	tmp1[index] = 0;
+	tmp = strdup(*dest);
+	if (tmp == NULL) return XE_DUP;
+	tmp[index] = 0;
 
-	err = xstr_cpy_c(dest, tmp1);
+	err = xstr_cpy_c(dest, tmp);
 	if (err != XE_NONE) return err;
 	err = xstr_cat(dest, src);
 	if (err != XE_NONE) return err;
-	err = xstr_cat_c(dest, tmp1 + index + 1);
+	err = xstr_cat_c(dest, tmp + index + 1);
 
-	free(tmp1);
+	free(tmp);
 
 	return err;
 }
@@ -172,4 +172,37 @@ x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end)
 	free(tmp2);
 
 	return err;
+}
+
+x_error_t xstr_push(xstr_t dest, char ch)
+{
+	char * tmp;
+	_xstr_t _dest;
+
+	_dest = (_xstr_t) dest;
+
+	if (_dest->cap > _dest->len + 1)
+	{
+		_dest->len++;
+		_dest->val[_dest->len - 1] = ch;
+		return XE_NONE;
+	}
+
+	tmp = realloc(_dest->val, _dest->cap + 16);
+	if (tmp == NULL)
+	{
+
+		free(_dest->val);
+		free(_dest);
+		return XE_ALLOC;
+	}
+
+	_dest->val = tmp;
+
+	_dest->cap += 16;
+	_dest->len++;
+
+	_dest->val[_dest->len - 1] = ch;
+
+	return XE_NONE;
 }

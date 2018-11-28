@@ -15,13 +15,18 @@ int main(void)
 	ER xstr_cat_c(thing, " world");
 	if (error != XE_NONE) return 1;
 
+	printf("Before substitution: %s\n", *thing);
+
 	ER xstr_delete(thing, 0, 4);
 	if (error != XE_NONE) return 1;
 
-	ER xstr_insert_c(thing, "uwu", 0);
+	ER xstr_insert_c(thing, "Hi there,", 0);
 	if (error != XE_NONE) return 1;
 
-	puts(*thing);
+	printf("After substitution: %s\n", *thing);
+
+	ER xstr_push(thing, 'h');
+	printf("After push: %s\n", *thing);
 
 	return 0;
 }

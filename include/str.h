@@ -25,6 +25,9 @@ typedef enum
 	XE_OTHER
 } x_error_t;
 
+/* Macros */
+#define xstrlen(x)   (((_xstr_t) x)->len)
+
 /* Functions and stuff */
 x_error_t xstr_init(xstr_t * dest, uint16_t size);
 
@@ -41,6 +44,8 @@ x_error_t xstr_insert(xstr_t dest, xstr_t src, uint16_t index);
 x_error_t xstr_insert_c(xstr_t dest, char * src, uint16_t index);
 
 x_error_t xstr_delete(xstr_t dest, uint16_t start, uint16_t end);
+
+x_error_t xstr_push(xstr_t dest, char ch);
 
 inline x_error_t str_init_set(xstr_t dest, char * src);
 

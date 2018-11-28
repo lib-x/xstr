@@ -1,9 +1,9 @@
 {
-	"name" : "libx",
+	"name" : "xstr",
 	"version" : "0.01",
-	"repo" : "The-Sushi/libx",
-	"description" : "A library to make C a bit easier.  Contains common things like strings, lists, etc",
-	"keywords" : ["string", "list", "pattern", "easy", "utilities", "utility", "util", "utils"],
+	"repo" : "The-Sushi/xstr",
+	"description" : "A simpler string library for C",
+	"keywords" : ["string", "str", "strings", "list", "simple", "utilities", "utility", "util", "utils"],
 	"license" : "CC0"
 	"src" :
 		[
