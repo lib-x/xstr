@@ -31,6 +31,15 @@ cp /tmp/xstr/src/str.c deps/xstr/str.c
 cp /tmp/xstr/src/str.h deps/xstr/str.h
 ```
 
+### If you like this lib enough to install it everywhere
+
+```
+git clone https://github.com/the-sushi/xstr.git
+cd xstr
+./build.sh
+./build.sh install
+```
+
 ## Example:
 
 ```
