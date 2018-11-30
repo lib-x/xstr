@@ -51,10 +51,7 @@ int main(void)
 	xstr_t thing = NULL;
 	x_error_t e;
 
-	e = xstr_init(&thing, 0); /* Capacity will auto-change, but it's faster if you set it ahead of time */
-	if (e != XE_NONE) return 1;
-
-	e = xstr_cpy_c(thing, "hello");
+	e = xstr_init_set(&thing, "hello");
 	if (e != XE_NONE) return 1;
 
 	e = xstr_cat_c(thing, " world");

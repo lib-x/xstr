@@ -5,16 +5,16 @@
 #include <stddef.h>
 
 /* Types and stuff */
-typedef struct _xstr_s
+struct _xstr_s
 {
 	char * val;
 	size_t cap;
 	size_t len;
-} * _xstr_t;
+};
 
 char typedef ** xstr_t;
 
-typedef enum
+enum
 {
 	XE_NONE = 0,
 	XE_ALLOC,
@@ -22,10 +22,10 @@ typedef enum
 	XE_NORANGE,
 	XE_OVERFLOW,
 	XE_OTHER
-} x_error_t;
+} typedef x_error_t;
 
 /* Macros */
-#define xstrlen(x)   (((_xstr_t) x)->len)
+#define xstrlen(x)   (((struct _xstr_s *) x)->len)
 
 /* Functions and stuff */
 x_error_t xstr_init(xstr_t * dest, size_t size);
