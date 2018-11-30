@@ -26,5 +26,10 @@ int main(void)
 	if (error != XE_NONE) return 1;
 
 	printf("After substitution: %s\n", *thing);
+
+	ER xstr_push(thing, '!');
+	if (error != XE_NONE) return 1;
+
+	printf("After push: %s\n", *thing);
 	return 0;
 }
