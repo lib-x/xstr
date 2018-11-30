@@ -1,7 +1,7 @@
 if [ "$#" == 0 ]
 then
 	echo "Building..."
-	$CC -std=c90 -pedantic -Wall -Wextra -O3 src/str.c -c -o str.o
+	$CC -std=c90 -pedantic -Wall -Wextra src/str.c -c -o str.o
 	echo "Done."
 elif [ "$1" == "install" ]
 then

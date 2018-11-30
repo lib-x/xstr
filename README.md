@@ -105,9 +105,9 @@ typedef char ** xstr_t;
 
 ----
 
-#### _xstr_t
+#### _xstr_t and _xstr_s
 ```
-typedef struct
+typedef struct _xstr_s
 {
 	char * val;
 	size_t cap;
@@ -171,7 +171,7 @@ Appends a C-string to an xstring.
 ----
 
 ```
-x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index);
+#define xstr_insert(x, y, z)  xstr_insert_c(x, *(y), z)
 ```
 Inserts an xstring into another xstring at specified index
 

@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 /* Types and stuff */
-typedef struct
+typedef struct _xstr_s
 {
 	char * val;
 	size_t cap;
@@ -40,7 +40,7 @@ x_error_t xstr_cat(xstr_t dest, xstr_t src);
 
 x_error_t xstr_cat_c(xstr_t dest, char * src);
 
-x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index);
+#define xstr_insert(x, y, z) xstr_insert_c((x), *(y), (z))
 
 x_error_t xstr_insert_c(xstr_t dest, char * src, size_t index);
 
