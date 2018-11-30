@@ -30,7 +30,7 @@ typedef enum
 /* Functions and stuff */
 x_error_t xstr_init(xstr_t * dest, size_t size);
 
-x_error_t xstr_init_set(xstr_t dest, char * src);
+x_error_t xstr_init_set(xstr_t * dest, char * src);
 
 x_error_t xstr_cpy(xstr_t dest, xstr_t src);
 

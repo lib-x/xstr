@@ -29,7 +29,7 @@ x_error_t xstr_init(xstr_t * dest, size_t size)
 	return XE_NONE;
 }
 
-x_error_t xstr_init_set(xstr_t dest, char * src)
+x_error_t xstr_init_set(xstr_t * dest, char * src)
 {
 	_xstr_t str;
 
@@ -42,7 +42,7 @@ x_error_t xstr_init_set(xstr_t dest, char * src)
 		strcpy(str->val, src);
 	}
 
-	dest = (xstr_t) str;
+	*dest = (xstr_t) str;
 
 	return XE_NONE;
 }
