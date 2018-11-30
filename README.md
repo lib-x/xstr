@@ -136,7 +136,7 @@ Initializes an xstring
 ----
 
 ```
-x_error_t str_init_set(xstr_t dest, char * src);
+x_error_t str_init_set(xstr_t * dest, char * src);
 ```
 Initializes and sets an xstring
 
