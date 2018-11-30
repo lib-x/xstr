@@ -94,9 +94,6 @@ x_error_t xstr_cpy_c(xstr_t dest, char * src)
 
 	strcpy(_dest->val, src);
 
-	_dest->val = strdup(src);
-	X_CHECK_ALLOC(*_dest);
-
 	_dest->len = ssize;
 	_dest->cap = ssize;
 
