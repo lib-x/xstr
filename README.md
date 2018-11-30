@@ -43,7 +43,7 @@ cd xstr
 ## Example:
 
 ```
-#include "include/str.h"
+#include <lib-x/str.h>
 #include <stdio.h>
 
 #define ER  error =

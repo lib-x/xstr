@@ -80,7 +80,7 @@ x_error_t xstr_cpy_c(xstr_t dest, char * src)
 
 	_dest = (_xstr_t) dest;
 	ssize = strlen(src);
-/*
+
 	if (_dest->cap < ssize)
 	{
 		if (ssize < (SIZE_MAX) / 2)
@@ -92,7 +92,7 @@ x_error_t xstr_cpy_c(xstr_t dest, char * src)
 		X_CHECK_ALLOC(*_dest);
 	}
 
-	strcpy(_dest->val, src);*/
+	strcpy(_dest->val, src);
 
 	_dest->val = strdup(src);
 	X_CHECK_ALLOC(*_dest);
