@@ -252,10 +252,21 @@ x_error_t xstr_push(xstr_t dest, char ch)
 	}
 
 	if (_dest->cap < SIZE_MAX / 2)
+	{
 		tmp = realloc(_dest->val, _dest->cap * 2);
-	else
-		tmp = realloc(_dest->val, _dest->cap);
-	/**/
+		_dest->cap *= 2;
+	}
+	else if (_dest->cap < SIZE_MAX - 32)
+	{
+		tmp = realloc(_dest->val, _dest->cap + 32);
+		_dest->cap += 32;
+	}
+	else if (_dest->cap < SIZE_MAX - 1)
+	{
+		tmp = realloc(_dest->val, _dest->cap + 1);
+		_dest->cap++;
+	}
+	else return XE_OVERFLOW;
 
 	if (tmp == NULL)
 	{
@@ -267,7 +278,6 @@ x_error_t xstr_push(xstr_t dest, char ch)
 
 	_dest->val = tmp;
 
-	_dest->cap *= 2;
 	_dest->len++;
 
 	_dest->val[_dest->len - 1] = ch;
