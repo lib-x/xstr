@@ -1,7 +1,7 @@
 # xstr: A simpler string library
 
 [![License](https://img.shields.io/badge/License-Public%20Domain-brightgreen.svg?style=for-the-badge)](https://github.com/lib-x/xstr/blob/master/LICENSE)
-[![Codacy grade](https://img.shields.io/codacy/grade/7dd9c8b220d9406d8dddaf4b29f153d4.svg?style=for-the-badge)](https://app.codacy.com/project/joshpritsker/xstr)
+[![Codacy grade](https://img.shields.io/codacy/grade/7dd9c8b220d9406d8dddaf4b29f153d4.svg?style=for-the-badge)](https://app.codacy.com/project/joshpritsker/xstr/dashboard?branchId=10006585)
 
 
 ## Why to use this over other string libraries
