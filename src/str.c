@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <limits.h>
 
 #define X_CHECK_ALLOC(x)    do { if (x == NULL) {return XE_ALLOC;} } while (0);
@@ -63,18 +64,23 @@ x_error_t xstr_cpy(xstr_t dest, xstr_t src)
 	_dest = (struct _xstr_s *) dest;
 	_src  = (struct _xstr_s *) src;
 
+	if (_src == NULL || _dest == NULL)
+		return XE_ISNULL;
+	if (_src->len == SIZE_MAX)
+		return XE_OVERFLOW;
+
 	if (_dest->cap < _src->len)
 	{
 		if (_src->len < SIZE_MAX / 2)
 		{
-			_dest->cap = (size_t) _src->len * 2;
+			_dest->cap = (size_t) (_src->len * 2 - 1);
 		}
 		else
 		{
 			_dest->cap = _src->len;
 		}
 
-		_dest->val = realloc(_dest->val, _dest->cap);
+		_dest->val = realloc(_dest->val, _dest->cap + 1);
 		X_CHECK_ALLOC(_dest->val);
 	}
 
@@ -92,18 +98,23 @@ x_error_t xstr_cpy_c(xstr_t dest, char * src)
 	_dest = (struct _xstr_s *) dest;
 	ssize = strlen(src);
 
+	if (dest == NULL)
+		return XE_ISNULL;
+	if (ssize == SIZE_MAX)
+		return XE_OVERFLOW;
+
 	if (_dest->cap < ssize)
 	{
 		if (ssize < SIZE_MAX / 2)
 		{
-			_dest->cap = (size_t) ssize * 2;
+			_dest->cap = (size_t) (ssize * 2 - 1);
 		}
-		else
+		else if (ssize != SIZE_MAX)
 		{
 			_dest->cap = ssize;
 		}
 
-		_dest->val = realloc(_dest->val, _dest->cap);
+		_dest->val = realloc(_dest->val, _dest->cap + 1);
 		X_CHECK_ALLOC(_dest->val);
 	}
 
@@ -124,22 +135,20 @@ x_error_t xstr_cat(xstr_t dest, xstr_t src)
 	_src  = (struct _xstr_s *) src;
 
 	if (_dest->len > SIZE_MAX - _src->len)
-	{
 		return XE_OVERFLOW;
-	}
 
 	if (_dest->cap < _src->len + _dest->len) /* No need for addition end-of-string nil byte */
 	{
 		if (_dest->len + _src->len < (SIZE_MAX / 2))
 		{
-			_dest->cap = (size_t) (2 * (_src->len + _dest->len));
+			_dest->cap = (size_t) ((_src->len + _dest->len) * 2 - 1);
 		}
 		else
 		{
 			_dest->cap = (size_t) _src->len + _dest->len;
 		}
 
-		_dest->val = realloc(_dest->val, _dest->cap);
+		_dest->val = realloc(_dest->val, _dest->cap + 1);
 		X_CHECK_ALLOC(_dest->val);
 	}
 
@@ -160,22 +169,20 @@ x_error_t xstr_cat_c(xstr_t dest, char * src)
 
 
 	if (_dest->len > SIZE_MAX - slen)
-	{
 		return XE_OVERFLOW;
-	}
 
 	if (_dest->cap < slen + _dest->len)
 	{
 		if (_dest->len + slen < SIZE_MAX / 2)
 		{
-			_dest->cap = (size_t) (2 * (slen + _dest->len));
+			_dest->cap = (size_t) ((slen + _dest->len) * 2 - 1);
 		}
 		else 
 		{
 			_dest->cap = (size_t) slen + _dest->len;
 		}
 
-		_dest->val = realloc(_dest->val, _dest->cap);
+		_dest->val = realloc(_dest->val, _dest->cap + 1);
 		X_CHECK_ALLOC(_dest->val);
 	}
 
@@ -246,13 +253,16 @@ x_error_t xstr_delete(xstr_t dest, size_t start, size_t end)
 	tmp2 = strdup(*(dest) + end + 1);
 	if (tmp2 == NULL)
 	{
-		free(tmp1); return XE_DUP;
+		free(tmp1); 
+		return XE_DUP;
 	}
 
 	err = xstr_cpy_c(dest, tmp1);
 	if (err != XE_NONE)
 	{
-		free(tmp1); free(tmp2); return err;
+		free(tmp1);
+		free(tmp2);
+		return err;
 	}
 
 	err = xstr_cat_c(dest, tmp2);
@@ -286,11 +296,11 @@ x_error_t xstr_push(xstr_t dest, char ch)
 	if (_dest->cap < SIZE_MAX / 2)
 	{
 		tmp = realloc(_dest->val, _dest->cap * 2);
-		_dest->cap *= 2;
+		_dest->cap = _dest->cap * 2 - 1;
 	}
 	else if (_dest->cap < SIZE_MAX - 1)
 	{
-		tmp = realloc(_dest->val, _dest->cap + 1);
+		tmp = realloc(_dest->val, _dest->cap + 2);
 		_dest->cap++;
 	}
 	else return XE_OVERFLOW;

@@ -21,6 +21,7 @@ enum
 	XE_DUP,
 	XE_NORANGE,
 	XE_OVERFLOW,
+	XE_ISNULL,
 	XE_OTHER
 } typedef x_error_t;
 

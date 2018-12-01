@@ -6,6 +6,7 @@
 - It's public domain
 - You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
 - Mostly compatible with C90/C89, not just C99
+- Consistent, simple error handling.  All functions return an `x_error_t`.
 
 ## Why not to use this library
 
@@ -15,10 +16,6 @@
 - You need *really* high performance
 - You're a programming-masochist
 - You're using Python
-
-## A note
-Master branch - mostly stable API for now.  The `next` branch will be merged into master later, and master will be moved to `old`.
-`next` has some changes, such moving the data to a header to allow the usage of `str` instead of `*str`.
 
 ## How to get it:
 
