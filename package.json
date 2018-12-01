@@ -1,6 +1,6 @@
 {
 	"name" : "xstr",
-	"version" : "0.1.1",
+	"version" : "0.2.0",
 	"repo" : "lib-x/xstr",
 	"description" : "A simpler string library for C",
 	"keywords" : ["xstr", "string", "str", "strings", "list", "simple", "utilities", "utility", "util", "utils"],
