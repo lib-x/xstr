@@ -18,7 +18,6 @@ x_error_t xstr_init(xstr_t * dest, size_t size)
 	}
 
 	str = malloc(sizeof (*str));
-
 	X_CHECK_ALLOC(str);
 
 	if (size == 0)
@@ -27,14 +26,16 @@ x_error_t xstr_init(xstr_t * dest, size_t size)
 	}
 
 	str->val = malloc(size + 1); /* String size + '\0' */
-
-	X_CHECK_ALLOC(str->val);
+	if (str->val == NULL)
+	{
+		free(str);
+		return XE_ALLOC;
+	}
 
 	str->cap = size;
 	str->len = 0;
 
 	*dest = (xstr_t) str;
-
 	return XE_NONE;
 }
 
