@@ -1,5 +1,6 @@
 # xstr: A simpler string library
 
+
 ## Why to use this over other string libraries
 
 - It's public domain
@@ -14,6 +15,10 @@
 - You need *really* high performance
 - You're a programming-masochist
 - You're using Python
+
+## A note
+Master branch - mostly stable API for now.  The `next` branch will be merged into master later, and master will be moved to `old`.
+`next` has some changes, such moving the data to a header to allow the usage of `str` instead of `*str`.
 
 ## How to get it:
 
