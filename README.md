@@ -106,14 +106,14 @@ typedef char ** xstr_t;
 
 ----
 
-#### _xstr_t and _xstr_s
+#### _xstr_s
 ```
 typedef struct _xstr_s
 {
 	char * val;
 	size_t cap;
 	size_t len;
-} * _xstr_t;
+};
 ```
 
 Internal representation of an xstr.
@@ -122,7 +122,7 @@ Internal representation of an xstr.
 ### Macros:
 
 ```
-#define xstrlen(x)   (((_xstr_t) x)->len)
+#define xstrlen(x)   (((_xstr_s *) x)->len)
 ```
 Get length of an xstring
 

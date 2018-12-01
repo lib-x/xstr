@@ -12,9 +12,9 @@ struct _xstr_s
 	size_t len;
 };
 
-char typedef ** xstr_t;
+typedef char ** xstr_t;
 
-enum
+typedef enum
 {
 	XE_NONE = 0,
 	XE_ALLOC,
@@ -23,7 +23,7 @@ enum
 	XE_OVERFLOW,
 	XE_ISNULL,
 	XE_OTHER
-} typedef x_error_t;
+} x_error_t;
 
 /* Macros */
 #define xstrlen(x)   (((struct _xstr_s *) x)->len)
