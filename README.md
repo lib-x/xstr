@@ -29,8 +29,7 @@ Either get clib, or do this:
 ```
 mkdir deps deps/xstr
 git clone https://github.com/the-sushi/xstr.git /tmp/xstr
-cp /tmp/xstr/src/str.c deps/xstr/str.c
-cp /tmp/xstr/src/str.h deps/xstr/str.h
+cp /tmp/xstr/src/* deps/xstr/
 ```
 
 ### If you like this lib enough to install it everywhere
