@@ -3,19 +3,19 @@
 
 ## Why to use this over other string libraries
 
-- It's public domain
-- You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
-- Mostly compatible with C90/C89, not just C99
-- Consistent, simple error handling.  All functions return an `x_error_t`.
+-  It's public domain
+-  You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
+-  Mostly compatible with C90/C89, not just C99
+-  Consistent, simple error handling.  All functions return an `x_error_t`.
 
 ## Why not to use this library
 
-- You don't have libc available
-- You're using a custom allocator
-- You're have no allocator
-- You need *really* high performance
-- You're a programming-masochist
-- You're using Python
+-  You don't have libc available
+-  You're using a custom allocator
+-  You're have no allocator
+-  You need *really* high performance
+-  You're a programming-masochist
+-  You're using Python
 
 ## How to get it:
 
