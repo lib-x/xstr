@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#define X_CHECK_ALLOC(x)    do { if (x == NULL) {return XE_ALLOC;} } while (0);
+#define X_CHECK_ALLOC(x)    do { if (x == NULL) {return XE_ALLOC;} } while (0)
 
 x_error_t xstr_init(xstr_t * dest, size_t size)
 {
