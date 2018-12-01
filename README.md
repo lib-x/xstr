@@ -1,6 +1,6 @@
 # xstr: A simpler string library
 
-[!License](https://img.shields.io/badge/License-Public%20Domain-brightgreen.svg?style=for-the-badge&link=https://github.com/lib-x/xstr/blob/master/LICENSE)
+![License](https://img.shields.io/badge/License-Public%20Domain-brightgreen.svg?style=for-the-badge&link=https://github.com/lib-x/xstr/blob/master/LICENSE)
 [![Codacy](https://api.codacy.com/project/badge/Grade/7dd9c8b220d9406d8dddaf4b29f153d4)](https://www.codacy.com/app/joshpritsker/xstr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lib-x/xstr&amp;utm_campaign=Badge_Grade)
 
 
