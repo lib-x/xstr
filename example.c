@@ -11,6 +11,8 @@ int main(void)
 		return 1;
 
 	error = xstr_cat_c(thing, " world");
+	if (error != XE_NONE)
+		return 1;
 
 
 	printf("Before substitution: %s\n", *thing);

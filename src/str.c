@@ -42,10 +42,16 @@ x_error_t xstr_init(xstr_t * dest, size_t size)
 x_error_t xstr_init_set_n(xstr_t * dest, char * src, size_t src_len)
 {
 	struct _xstr_s * str;
+	x_error_t e;
 
 	str = NULL;
 
-	xstr_init((xstr_t *) &str, src_len);
+	e = xstr_init((xstr_t *) &str, src_len);
+
+	if (e != XE_NONE)
+	{
+		return e;
+	}
 
 	if (str->val != NULL)
 	{
@@ -188,6 +194,7 @@ x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t src_len)
 	return XE_NONE;
 }
 
+/* POSSIBLE TODO: Write these better */
 x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index)
 {
 	char * tmp;
@@ -216,12 +223,16 @@ x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index)
 	err = xstr_cpy_c(dest, tmp);
 	if (err != XE_NONE)
 	{
+		free(tmp);
+		free(tmp1);
 		return err;
 	}
 
 	err = xstr_cat_c_n(dest, *src, ((struct _xstr_s *) src)->len);
 	if (err != XE_NONE)
 	{
+		free(tmp);
+		free(tmp1);
 		return err;
 	}
 	err = xstr_cat_c(dest, tmp1);
@@ -255,12 +266,16 @@ x_error_t xstr_insert_c_n(xstr_t dest, char * src, size_t index, size_t src_len)
 	err = xstr_cpy_c(dest, tmp);
 	if (err != XE_NONE)
 	{
+		free(tmp);
+		free(tmp1);
 		return err;
 	}
 
 	err = xstr_cat_c_n(dest, src, src_len);
 	if (err != XE_NONE)
 	{
+		free(tmp);
+		free(tmp1);
 		return err;
 	}
 	err = xstr_cat_c(dest, tmp1);
