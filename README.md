@@ -3,7 +3,11 @@
 [![License](https://img.shields.io/badge/License-Public%20Domain-brightgreen.svg?style=flat)](https://github.com/lib-x/xstr/blob/master/LICENSE)
 [![Codacy](https://api.codacy.com/project/badge/Grade/7dd9c8b220d9406d8dddaf4b29f153d4)](https://www.codacy.com/app/joshpritsker/xstr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lib-x/xstr&amp;utm_campaign=Badge_Grade)
 
-## Why to use this over other string libraries
+## What is this?
+
+xstr is a library for managing and manipulating dynamic strings in a simple way.
+
+## Why use this over other string libraries
 
 -  It's public domain
 -  You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
