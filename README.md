@@ -3,18 +3,18 @@
 [![License](https://img.shields.io/badge/License-Public%20Domain-brightgreen.svg?style=flat)](https://github.com/lib-x/xstr/blob/master/LICENSE)
 [![Codacy](https://api.codacy.com/project/badge/Grade/7dd9c8b220d9406d8dddaf4b29f153d4)](https://www.codacy.com/app/joshpritsker/xstr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lib-x/xstr&amp;utm_campaign=Badge_Grade)
 
-## What is this?
+## What is this:
 
 xstr is a library for managing and manipulating dynamic strings in a simple way.
 
-## Why use this over other string libraries
+## Why use this over other string libraries:
 
 -  It's public domain
 -  You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
 -  Mostly compatible with C90/C89, not just C99
 -  Consistent, simple error handling.  All functions return an `x_error_t`.
 
-## Why not to use this library
+## Why not to use this library:
 
 -  You don't have libc available
 -  You're using a custom allocator
