@@ -1,5 +1,7 @@
 # xstr: A simpler string library
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7dd9c8b220d9406d8dddaf4b29f153d4)](https://www.codacy.com/app/joshpritsker/xstr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lib-x/xstr&amp;utm_campaign=Badge_Grade)
+
 
 ## Why to use this over other string libraries
 
