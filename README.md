@@ -126,6 +126,25 @@ Internal representation of an xstr.
 ```
 Get length of an xstring
 
+```
+#define xstr_init_set(dest, src)         xstr_init_set_n((dest), (src), strlen(src))
+```
+Initializes an xstring with specified C-string value
+
+```
+#define xstr_cpy_c(dest, src)            xstr_cpy_c_n((dest), (src), strlen(src))
+```
+Copies specfied C-string to specified xstring
+
+```
+#define xstr_cat_c(dest, src)            xstr_cat_c_n((dest), (src), strlen(src))
+```
+Appends specified C-string to specified xstring
+
+```
+#define xstr_insert_c(dest, src, index)  xstr_insert_c_n((dest), (src), index, strlen(src))
+```
+Inserts specified C-string into xstring at specified location
 
 ### Functions:
 
@@ -137,9 +156,9 @@ Initializes an xstring
 ----
 
 ```
-x_error_t str_init_set(xstr_t * dest, char * src);
+x_error_t str_init_set_n(xstr_t * dest, char * src, size_t len);
 ```
-Initializes and sets an xstring
+Initializes and sets an xstring to `src`, assuming `src` is `len` chars long
 
 ----
 
@@ -151,37 +170,36 @@ Copies one xstring to another
 ----
 
 ```
-x_error_t xstr_cpy_c(xstr_t dest, char * src);
+x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t len);
 ```
-Copies a C-string to an xstring
+Copies a C-string that is `len` chars long into an xstring
 
 ----
 
 ```
 x_error_t xstr_cat(xstr_t dest, xstr_t src);
 ```
-Append to an xstring
+Append an xstring to an xstring
 
 ----
 
 ```
-x_error_t xstr_cat_c(xstr_t dest, char * src);
+x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t len);
 ```
-Appends a C-string to an xstring.
+Appends a C-string that is `len` chars long into an xstring.
 
 ----
 
 ```
-#define xstr_insert(x, y, z)  xstr_insert_c(x, *(y), z)
+x_error_t xstr_insert(xstr_t dest, char * src, size_t index);
 ```
 Inserts an xstring into another xstring at specified index
-
-----
+---
 
 ```
-x_error_t xstr_insert_c(xstr_t dest, char * src, size_t index);
+x_error_t xstr_insert_c_n(xstr_t dest, char * src, size_t index, size_t len);
 ```
-Inserts aa C-string into an xstring at specified index
+Inserts a C-string that is `len` chars long into an xstring at specified index
 
 ----
 

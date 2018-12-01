@@ -38,13 +38,13 @@ x_error_t xstr_init(xstr_t * dest, size_t size)
 	return XE_NONE;
 }
 
-x_error_t xstr_init_set(xstr_t * dest, char * src)
+x_error_t xstr_init_set_n(xstr_t * dest, char * src, size_t src_len)
 {
 	struct _xstr_s * str;
 
 	str = NULL;
 
-	xstr_init((xstr_t *) &str, strlen(src));
+	xstr_init((xstr_t *) &str, src_len);
 
 	if (str->val != NULL)
 	{
@@ -90,13 +90,11 @@ x_error_t xstr_cpy(xstr_t dest, xstr_t src)
 	return XE_NONE;
 }
 
-x_error_t xstr_cpy_c(xstr_t dest, char * src)
+x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t ssize)
 {
-	size_t ssize;
 	struct _xstr_s * _dest;
 
 	_dest = (struct _xstr_s *) dest;
-	ssize = strlen(src);
 
 	if (dest == NULL)
 		return XE_ISNULL;
@@ -158,28 +156,25 @@ x_error_t xstr_cat(xstr_t dest, xstr_t src)
 	return XE_NONE;
 }
 
-x_error_t xstr_cat_c(xstr_t dest, char * src)
+x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t src_len)
 {
-	size_t slen;
 	struct _xstr_s * _dest;
 
 	_dest = (struct _xstr_s *) dest;
-	slen = strlen(src);
 
 
-
-	if (_dest->len > SIZE_MAX - slen)
+	if (_dest->len > SIZE_MAX - src_len)
 		return XE_OVERFLOW;
 
-	if (_dest->cap < slen + _dest->len)
+	if (_dest->cap < src_len + _dest->len)
 	{
-		if (_dest->len + slen < SIZE_MAX / 2)
+		if (_dest->len + src_len < SIZE_MAX / 2)
 		{
-			_dest->cap = (size_t) ((slen + _dest->len) * 2 - 1);
+			_dest->cap = (size_t) ((src_len + _dest->len) * 2 - 1);
 		}
 		else 
 		{
-			_dest->cap = (size_t) slen + _dest->len;
+			_dest->cap = (size_t) src_len + _dest->len;
 		}
 
 		_dest->val = realloc(_dest->val, _dest->cap + 1);
@@ -187,12 +182,56 @@ x_error_t xstr_cat_c(xstr_t dest, char * src)
 	}
 
 	strcat(_dest->val, src);
-	_dest->len = slen + _dest->len;
+	_dest->len = src_len + _dest->len;
 
 	return XE_NONE;
 }
 
-x_error_t xstr_insert_c(xstr_t dest, char * src, size_t index)
+x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index)
+{
+	char * tmp;
+	char * tmp1;
+	x_error_t err;
+
+	if (src == NULL)
+	{
+		return XE_ISNULL;
+	}
+
+	tmp = strdup(*dest);
+	if (tmp == NULL)
+	{
+		return XE_DUP;
+	}
+
+	tmp1 = strdup(tmp + index);
+	if (tmp == NULL)
+	{
+		return XE_DUP;
+	}
+
+	tmp[index] = 0;
+
+	err = xstr_cpy_c(dest, tmp);
+	if (err != XE_NONE)
+	{
+		return err;
+	}
+
+	err = xstr_cat_c_n(dest, *src, ((struct _xstr_s *) src)->len);
+	if (err != XE_NONE)
+	{
+		return err;
+	}
+	err = xstr_cat_c(dest, tmp1);
+
+	free(tmp);
+	free(tmp1);
+
+	return err;
+}
+
+x_error_t xstr_insert_c_n(xstr_t dest, char * src, size_t index, size_t src_len)
 {
 	char * tmp;
 	char * tmp1;
@@ -218,7 +257,7 @@ x_error_t xstr_insert_c(xstr_t dest, char * src, size_t index)
 		return err;
 	}
 
-	err = xstr_cat_c(dest, src);
+	err = xstr_cat_c_n(dest, src, src_len);
 	if (err != XE_NONE)
 	{
 		return err;
