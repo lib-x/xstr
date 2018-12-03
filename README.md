@@ -60,19 +60,18 @@ cd xstr
 int main(void)
 {
 	xstr_t thing;
-	x_error_t e;
 
-	e = xstr_init_set(&thing, "hello");
-	e = xstr_cat_c(thing, " world");
+	xstr_init_set(&thing, "hello");
+	xstr_cat_c(thing, " world");
 
 	printf("Before substitution: %s\n", *thing);
 
-	e = xstr_delete(thing, 0, 4);
-	e = xstr_insert_c(thing, "Hi there,", 0);
+	xstr_delete(thing, 0, 4);
+	xstr_insert_c(thing, "Hi there,", 0);
 
 	printf("After substitution: %s\n", *thing);
 
-	e = xstr_push(thing, '!');
+	xstr_push(thing, '!');
 
 	printf("After push: %s\n", *thing);
 
