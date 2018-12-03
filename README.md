@@ -138,6 +138,7 @@ int main(void)
 	}
 
 	puts(*thing);
+	return 0;
 }
 ```
 
