@@ -12,7 +12,7 @@ xstr is a library for managing and manipulating dynamic strings in a simple way.
 -  It's public domain
 -  You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
 -  Mostly compatible with C90/C89, not just C99
--  Consistent, simple error handling.  All functions return an `x_error_t`.
+-  Consistent, simple interface.  All functions take `dest` as the first argument and return an `x_error_t`.
 
 ## Why not to use this library:
 
@@ -53,29 +53,31 @@ cd xstr
 #include <lib-x/str.h>
 #include <stdio.h>
 
+#define HANDLE_XE(error)      if (error != XE_NONE) return 1; else (void)0
+
 int main(void)
 {
 	xstr_t thing = NULL;
 	x_error_t e;
 
 	e = xstr_init_set(&thing, "hello");
-	if (e != XE_NONE) return 1;
+	HANDLE_XE(e);
 
 	e = xstr_cat_c(thing, " world");
-	if (e != XE_NONE) return 1;
+	HANDLE_XE(e);
 
 	printf("Before substitution: %s\n", *thing);
 
 	e = xstr_delete(thing, 0, 4);
-	if (e != XE_NONE) return 1;
+	HANDLE_XE(e);
 
 	e = xstr_insert_c(thing, "Hi there,", 0);
-	if (e != XE_NONE) return 1;
+	HANDLE_XE(e);
 
 	printf("After substitution: %s\n", *thing);
 
 	e = xstr_push(thing, '!');
-	if (e != XE_NONE) return 1;
+	HANDLE_XE(e);
 
 	printf("After push: %s\n", *thing);
 
