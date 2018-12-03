@@ -116,7 +116,7 @@ int main(void)
 }
 ```
 
-### More advanced error handling example:
+### Case/Switch error handling:
 
 ```
 #include <lib-x/str.h>
