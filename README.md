@@ -55,8 +55,6 @@ cd xstr
 #include <lib-x/str.h>
 #include <stdio.h>
 
-#define HANDLE_XE(error)      if (error != XE_NONE) return 1; else (void)0
-
 int main(void)
 {
 	xstr_t thing;
