@@ -11,7 +11,7 @@
 x_error_t xstr_init(xstr_t * dest, size_t size)
 {
 	struct _xstr_s * str;
-
+ 
 	if (size == SIZE_MAX)
 	{
 		return XE_OVERFLOW;
@@ -28,8 +28,8 @@ x_error_t xstr_init(xstr_t * dest, size_t size)
 	str->val = malloc(size + 1); /* String size + '\0' */
 	if (str->val == NULL)
 	{
-		free(str);
-		return XE_ALLOC;
+ 		free(str);
+ 		return XE_ALLOC;
 	}
 
 	str->cap = size;

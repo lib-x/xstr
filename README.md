@@ -49,6 +49,8 @@ cd xstr
 
 ## Example:
 
+### Without any error handling:
+
 ```
 #include <lib-x/str.h>
 #include <stdio.h>
@@ -57,31 +59,88 @@ cd xstr
 
 int main(void)
 {
-	xstr_t thing = NULL;
+	xstr_t thing;
 	x_error_t e;
 
 	e = xstr_init_set(&thing, "hello");
-	HANDLE_XE(e);
-
 	e = xstr_cat_c(thing, " world");
-	HANDLE_XE(e);
 
 	printf("Before substitution: %s\n", *thing);
 
 	e = xstr_delete(thing, 0, 4);
-	HANDLE_XE(e);
-
 	e = xstr_insert_c(thing, "Hi there,", 0);
-	HANDLE_XE(e);
 
 	printf("After substitution: %s\n", *thing);
 
 	e = xstr_push(thing, '!');
-	HANDLE_XE(e);
 
 	printf("After push: %s\n", *thing);
 
 	return 0;
+}
+```
+
+### With basic example error handling:
+
+```
+#include <lib-x/str.h>
+#include <stdio.h>
+
+int main(void)
+{
+	xstr_t thing;
+	x_error_t e;
+
+	e = xstr_init_set(&thing, "hello");
+	if (error != XE_NONE) return 1;
+
+	e = xstr_cat_c(thing, " world");
+	if (error != XE_NONE) return 1;
+
+	printf("Before substitution: %s\n", *thing);
+
+	e = xstr_delete(thing, 0, 4);
+	if (error != XE_NONE) return 1;
+
+	e = xstr_insert_c(thing, "Hi there,", 0);
+	if (error != XE_NONE) return 1;
+
+	printf("After substitution: %s\n", *thing);
+
+	e = xstr_push(thing, '!');
+	if (error != XE_NONE) return 1;
+
+	printf("After push: %s\n", *thing);
+
+	return 0;
+}
+```
+
+### More advanced error handling example:
+
+```
+#include <lib-x/str.h>
+#include <stdio.h>
+
+int main(void)
+{
+	xstr thing;
+	x_error_t e;
+
+	e = xstr_init_set(&thing, "Hello, world!");
+	switch (e)
+	{
+		case XE_NONE:
+			break;
+		case XE_ALLOC:
+			perror("Error allocating string");
+			return 1;
+		default:
+			fprintf(stderr, "Unknown error.  This should not be happening");
+			return 1;
+	}
+
+	puts(*thing);
 }
 ```
 
@@ -98,8 +157,7 @@ typedef enum
 	XE_DUP,
 	XE_NORANGE,
 	XE_OVERFLOW,
-	XE_ISNULL,
-	XE_OTHER
+	XE_ISNULL
 } x_error_t;
 ```
 All functions return this.
