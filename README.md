@@ -11,7 +11,7 @@ xstr is a library for managing and manipulating dynamic strings in a simple way.
 
 -  It's public domain
 -  You can access the internal string using `*str` instead of having to do `get_val(str)` or `str.val`
--  Mostly compatible with C90/C89, not just C99
+-  Compatible with C90/C89, not just C99
 -  Consistent, simple interface.  All functions take `dest` as the first argument and return an `x_error_t`.
 
 ## Why not to use this library:
