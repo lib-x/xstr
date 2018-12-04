@@ -32,7 +32,7 @@ xstr is a library for managing and manipulating dynamic strings in a simple way.
 ### If you don't have clib:
 Either get clib, or do this:
 
-```
+```bash
 mkdir deps deps/xstr
 git clone https://github.com/the-sushi/xstr.git /tmp/xstr
 cp /tmp/xstr/src/* deps/xstr/
@@ -40,7 +40,7 @@ cp /tmp/xstr/src/* deps/xstr/
 
 ### If you like this lib enough to install it everywhere
 
-```
+```bash
 git clone https://github.com/the-sushi/xstr.git
 cd xstr
 ./build.sh
@@ -51,7 +51,7 @@ cd xstr
 
 ### Without any error handling:
 
-```
+```c
 #include <lib-x/str.h>
 #include <stdio.h>
 
@@ -79,7 +79,7 @@ int main(void)
 
 ### With basic example error handling:
 
-```
+```c
 #include <lib-x/str.h>
 #include <stdio.h>
 
@@ -115,7 +115,7 @@ int main(void)
 
 ### Case/Switch error handling:
 
-```
+```c
 #include <lib-x/str.h>
 #include <stdio.h>
 
@@ -147,7 +147,7 @@ int main(void)
 ### Types:
 
 #### x_error_t
-```
+```c
 typedef enum
 {
 	XE_NONE,
@@ -164,14 +164,14 @@ All functions return this.
 
 
 #### xstr_t
-```
+```c
 typedef char ** xstr_t;
 ```
 
 ----
 
 #### _xstr_s
-```
+```c
 typedef struct _xstr_s
 {
 	char * val;
@@ -185,103 +185,103 @@ Internal representation of an xstr.
 
 ### Macros:
 
-```
+```c
 #define xstrlen(x)   (((_xstr_s *) x)->len)
 ```
 Get length of an xstring
 
-```
+```c
 #define xstr_init_set(dest, src)         xstr_init_set_n((dest), (src), strlen(src))
 ```
 Initializes an xstring with specified C-string value
 
-```
+```c
 #define xstr_cpy_c(dest, src)            xstr_cpy_c_n((dest), (src), strlen(src))
 ```
 Copies specfied C-string to specified xstring
 
-```
+```c
 #define xstr_cat_c(dest, src)            xstr_cat_c_n((dest), (src), strlen(src))
 ```
 Appends specified C-string to specified xstring
 
-```
+```c
 #define xstr_insert_c(dest, src, index)  xstr_insert_c_n((dest), (src), index, strlen(src))
 ```
 Inserts specified C-string into xstring at specified location
 
 ### Functions:
 
-```
+```c
 x_error_t xstr_init(xstr_t * dest, size_t size);
 ```
 Initializes an xstring
 
 ----
 
-```
+```c
 x_error_t str_init_set_n(xstr_t * dest, char * src, size_t len);
 ```
 Initializes and sets an xstring to `src`, assuming `src` is `len` chars long
 
 ----
 
-```
+```c
 x_error_t xstr_cpy(xstr_t dest, xstr_t src);
 ```
 Copies one xstring to another
 
 ----
 
-```
+```c
 x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t len);
 ```
 Copies a C-string that is `len` chars long into an xstring
 
 ----
 
-```
+```c
 x_error_t xstr_cat(xstr_t dest, xstr_t src);
 ```
 Append an xstring to an xstring
 
 ----
 
-```
+```c
 x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t len);
 ```
 Appends a C-string that is `len` chars long into an xstring.
 
 ----
 
-```
+```c
 x_error_t xstr_insert(xstr_t dest, char * src, size_t index);
 ```
 Inserts an xstring into another xstring at specified index
 ---
 
-```
+```c
 x_error_t xstr_insert_c_n(xstr_t dest, char * src, size_t index, size_t len);
 ```
 Inserts a C-string that is `len` chars long into an xstring at specified index
 
 ----
 
-```
+```c
 x_error_t xstr_delete(xstr_t dest, size_t start, size_t end);
 ```
 Deletes part of an xstring. (from index of start until end)
 
 ----
 
-```
+```c
 x_error_t xstr_push(xstr_t dest, char ch);
 ```
 Appends a character to an xstring
 
 ----
 
-```
+```c
 x_error_t xstr_free(xstr_t src);
 ```
 Deallocates an xstring
