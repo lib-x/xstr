@@ -47,6 +47,12 @@ cp /tmp/xstr/src/* deps/xstr/
     ../configure [--help]
     make
     (optionally) make install
+    
+### Build example.c
+
+From the build directory:
+
+    make example -C src
 
 ## Example:
 

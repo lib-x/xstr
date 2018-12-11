@@ -1,4 +1,4 @@
-#include "src/str.h"
+#include "str.h"
 #include <stdio.h>
 
 int main(void)

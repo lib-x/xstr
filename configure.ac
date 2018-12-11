@@ -3,6 +3,7 @@ AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_PREREQ(2.69)
 AC_CONFIG_HEADERS([src/config.h:config.in])
 
+# $VERSION is assigned by AC_INIT (above), using the second argument
 XSTR_MAJOR_VERSION=[`expr $VERSION : '\([0-9][0-9]*\)'`]
 AC_SUBST(XSTR_MAJOR_VERSION)
 XSTR_MINOR_VERSION=[`expr $VERSION : '[0-9][0-9]*\.\([0-9][0-9]*\)'`]

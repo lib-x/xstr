@@ -89,6 +89,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+EXTRA_PROGRAMS = example$(EXEEXT)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_enable_debug.m4 \
@@ -142,6 +143,12 @@ am__v_lt_1 =
 libxstr_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(libxstr_la_LDFLAGS) $(LDFLAGS) -o $@
+am__dirstamp = $(am__leading_dot)dirstamp
+am_example_OBJECTS = @top_srcdir@/example-example.$(OBJEXT)
+example_OBJECTS = $(am_example_OBJECTS)
+example_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(example_CFLAGS) \
+	$(CFLAGS) $(example_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -176,8 +183,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libxstr_la_SOURCES)
-DIST_SOURCES = $(libxstr_la_SOURCES)
+SOURCES = $(libxstr_la_SOURCES) $(example_SOURCES)
+DIST_SOURCES = $(libxstr_la_SOURCES) $(example_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -327,12 +334,19 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = -std=c90 -pedantic -Wall -Wextra
+lib_LTLIBRARIES = libxstr.la
 libxstr_la_SOURCES = str.c
 include_HEADERS = str.h
-lib_LTLIBRARIES = libxstr.la
 libxstr_la_LDFLAGS = -version-info \
 	$(XSTR_MAJOR_VERSION):$(XSTR_MINOR_VERSION):$(XSTR_MICRO_VERSION) \
 	${extra_ldflags}
+
+# Build the example program
+example_CFLAGS = $(AM_CFLAGS)
+example_SOURCES = @top_srcdir@/example.c
+example_DEPENDENCIES = libxstr.la
+example_LDFLAGS = -all-static -L@top_builddir@/src/.libs
+example_LDADD = -lxstr
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -420,14 +434,28 @@ clean-libLTLIBRARIES:
 
 libxstr.la: $(libxstr_la_OBJECTS) $(libxstr_la_DEPENDENCIES) $(EXTRA_libxstr_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libxstr_la_LINK) -rpath $(libdir) $(libxstr_la_OBJECTS) $(libxstr_la_LIBADD) $(LIBS)
+@top_srcdir@/$(am__dirstamp):
+	@$(MKDIR_P) @top_srcdir@
+	@: > @top_srcdir@/$(am__dirstamp)
+@top_srcdir@/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) @top_srcdir@/$(DEPDIR)
+	@: > @top_srcdir@/$(DEPDIR)/$(am__dirstamp)
+@top_srcdir@/example-example.$(OBJEXT): @top_srcdir@/$(am__dirstamp) \
+	@top_srcdir@/$(DEPDIR)/$(am__dirstamp)
+
+example$(EXEEXT): $(example_OBJECTS) $(example_DEPENDENCIES) $(EXTRA_example_DEPENDENCIES) 
+	@rm -f example$(EXEEXT)
+	$(AM_V_CCLD)$(example_LINK) $(example_OBJECTS) $(example_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f @top_srcdir@/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/str.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@@top_srcdir@/$(DEPDIR)/example-example.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -452,6 +480,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+@top_srcdir@/example-example.o: @top_srcdir@/example.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(example_CFLAGS) $(CFLAGS) -MT @top_srcdir@/example-example.o -MD -MP -MF @top_srcdir@/$(DEPDIR)/example-example.Tpo -c -o @top_srcdir@/example-example.o `test -f '@top_srcdir@/example.c' || echo '$(srcdir)/'`@top_srcdir@/example.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) @top_srcdir@/$(DEPDIR)/example-example.Tpo @top_srcdir@/$(DEPDIR)/example-example.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='@top_srcdir@/example.c' object='@top_srcdir@/example-example.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(example_CFLAGS) $(CFLAGS) -c -o @top_srcdir@/example-example.o `test -f '@top_srcdir@/example.c' || echo '$(srcdir)/'`@top_srcdir@/example.c
+
+@top_srcdir@/example-example.obj: @top_srcdir@/example.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(example_CFLAGS) $(CFLAGS) -MT @top_srcdir@/example-example.obj -MD -MP -MF @top_srcdir@/$(DEPDIR)/example-example.Tpo -c -o @top_srcdir@/example-example.obj `if test -f '@top_srcdir@/example.c'; then $(CYGPATH_W) '@top_srcdir@/example.c'; else $(CYGPATH_W) '$(srcdir)/@top_srcdir@/example.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) @top_srcdir@/$(DEPDIR)/example-example.Tpo @top_srcdir@/$(DEPDIR)/example-example.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='@top_srcdir@/example.c' object='@top_srcdir@/example-example.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(example_CFLAGS) $(CFLAGS) -c -o @top_srcdir@/example-example.obj `if test -f '@top_srcdir@/example.c'; then $(CYGPATH_W) '@top_srcdir@/example.c'; else $(CYGPATH_W) '$(srcdir)/@top_srcdir@/example.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -595,6 +637,8 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f @top_srcdir@/$(DEPDIR)/$(am__dirstamp)
+	-rm -f @top_srcdir@/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -605,7 +649,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ./$(DEPDIR) @top_srcdir@/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -651,7 +695,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ./$(DEPDIR) @top_srcdir@/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
