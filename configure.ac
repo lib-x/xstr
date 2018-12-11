@@ -13,7 +13,9 @@ AC_SUBST(XSTR_MICRO_VERSION)
 # Don't add -g and -O2 by default
 : ${CFLAGS=""}
 
-# RELEASE TODO: set this to "no"
+# RELEASE TODO: set this to "no". Use `./configure --help | grep debug` to
+# view the options. `./configure --enable-debug=no` will enable compiler
+# optimizations, which usually are only be needed for a release.
 AX_CHECK_ENABLE_DEBUG([yes])
 
 AC_PROG_CC
