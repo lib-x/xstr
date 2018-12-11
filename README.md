@@ -61,17 +61,11 @@ int main(void)
 
 	xstr_init_set(&thing, "hello");
 	xstr_cat_c(thing, " world");
-
-	printf("Before substitution: %s\n", *thing);
-
 	xstr_delete(thing, 0, 4);
 	xstr_insert_c(thing, "Hi there,", 0);
-
-	printf("After substitution: %s\n", *thing);
-
 	xstr_push(thing, '!');
 
-	printf("After push: %s\n", *thing);
+	printf("End result: %s\n", *thing);
 
 	return 0;
 }
@@ -94,20 +88,16 @@ int main(void)
 	e = xstr_cat_c(thing, " world");
 	if (error != XE_NONE) return 1;
 
-	printf("Before substitution: %s\n", *thing);
-
 	e = xstr_delete(thing, 0, 4);
 	if (error != XE_NONE) return 1;
 
 	e = xstr_insert_c(thing, "Hi there,", 0);
 	if (error != XE_NONE) return 1;
 
-	printf("After substitution: %s\n", *thing);
-
 	e = xstr_push(thing, '!');
 	if (error != XE_NONE) return 1;
 
-	printf("After push: %s\n", *thing);
+	printf("End result: %s\n", *thing);
 
 	return 0;
 }
