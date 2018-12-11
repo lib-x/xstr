@@ -55,7 +55,7 @@ x_error_t xstr_init_set_n(xstr_t * dest, char * src, size_t src_len)
 
 	if (str->val != NULL)
 	{
-		strcpy(str->val, src);
+		strncpy(str->val, src, src_len);
 	}
 
 	*dest = (xstr_t) str;
@@ -97,7 +97,7 @@ x_error_t xstr_cpy(xstr_t dest, xstr_t src)
 	return XE_NONE;
 }
 
-x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t ssize)
+x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t src_len)
 {
 	struct _xstr_s * _dest;
 
@@ -105,28 +105,28 @@ x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t ssize)
 
 	if (dest == NULL)
 		return XE_ISNULL;
-	if (ssize == SIZE_MAX)
+	if (src_len == SIZE_MAX)
 		return XE_OVERFLOW;
 
-	if (_dest->cap < ssize)
+	if (_dest->cap < src_len)
 	{
-		if (ssize < SIZE_MAX / 2)
+		if (src_len < SIZE_MAX / 2)
 		{
-			_dest->cap = (size_t) (ssize * 2 - 1);
+			_dest->cap = (size_t) (src_len * 2 - 1);
 		}
-		else if (ssize != SIZE_MAX)
+		else if (src_len != SIZE_MAX)
 		{
-			_dest->cap = ssize;
+			_dest->cap = src_len;
 		}
 
 		_dest->val = realloc(_dest->val, _dest->cap + 1);
 		X_CHECK_ALLOC(_dest->val);
 	}
 
-	strcpy(_dest->val, src);
+	strncpy(_dest->val, src, src_len);
 
-	_dest->len = ssize;
-	_dest->cap = ssize;
+	_dest->len = src_len;
+	_dest->cap = src_len;
 
 	return XE_NONE;
 }
@@ -188,7 +188,7 @@ x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t src_len)
 		X_CHECK_ALLOC(_dest->val);
 	}
 
-	strcat(_dest->val, src);
+	strncat(_dest->val, src, src_len);
 	_dest->len = src_len + _dest->len;
 
 	return XE_NONE;
@@ -327,6 +327,7 @@ x_error_t xstr_delete(xstr_t dest, size_t start, size_t end)
 
 	return err;
 }
+
 
 x_error_t xstr_push(xstr_t dest, char ch)
 {
