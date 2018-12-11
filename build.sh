@@ -2,16 +2,16 @@
 
 if [ -z "$CC" ]
 then
-	if type "cc" &> /dev/null
+	if type "cc" > /dev/null
 	then
 		CC=cc
-	elif type "clang" &> /dev/null
+	elif type "clang" > /dev/null
 	then
 		CC=clang
-	elif type "gcc" &> /dev/null
+	elif type "gcc" > /dev/null
 	then
 		CC=gcc
-	elif type "tcc" &> /dev/null
+	elif type "tcc" > /dev/null
 	then
 		CC=tcc
 	else
@@ -20,12 +20,12 @@ then
 	fi
 fi
 
-if [ "$#" == 0 ]
+if [ "$#" = 0 ]
 then
 	echo "Building..."
 	$CC -std=c90 -pedantic -Wall -Wextra -O3 src/str.c -c -o str.o
 	echo "Done."
-elif [ "$1" == "install" ]
+elif [ "$1" = "install" ]
 then
 
 	if [ ! -f "str.o" ]
@@ -48,7 +48,7 @@ then
 	install xstr.o "/usr/local/lib/libx/"
 	install src/xstr.h "/usr/local/include/libx/"
 	echo "Done."
-elif [ "$1" == "example" ]
+elif [ "$1" = "example" ]
 then
 	if [ ! -f "str.o" ]
 	then
