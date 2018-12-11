@@ -1,4 +1,4 @@
 build-aux/*  linguist-generated=true
 .github/*    linguist-documentation=true
 Makefile*    linguist-generated=true
-*.m4         linguist-generated=true
+aclocal.m4         linguist-generated=true
