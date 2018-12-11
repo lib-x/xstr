@@ -203,7 +203,7 @@ x_error_t xstr_insert(xstr_t dest, xstr_t src, size_t index)
 	}
 
 	tmp1 = strdup(tmp + index);
-	if (tmp == NULL)
+	if (tmp1 == NULL)
 	{
 		return XE_DUP;
 	}
