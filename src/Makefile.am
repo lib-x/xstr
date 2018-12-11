@@ -10,7 +10,7 @@ libxstr_la_LDFLAGS += ${extra_ldflags}
 # Build the example program
 example_CFLAGS = $(AM_CFLAGS)
 EXTRA_PROGRAMS = example
-example_SOURCES = @top_srcdir@/example.c
+example_SOURCES = example.c
 example_DEPENDENCIES = libxstr.la
 example_LDFLAGS = -all-static -L@top_builddir@/src/.libs
 example_LDADD = -lxstr
