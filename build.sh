@@ -1,4 +1,24 @@
-#!/bin/bash
+#!/bin/sh
+
+if [ -z "$CC" ]
+then
+	if type "cc" &> /dev/null
+	then
+		CC=cc
+	elif type "clang" &> /dev/null
+	then
+		CC=clang
+	elif type "gcc" &> /dev/null
+	then
+		CC=gcc
+	elif type "tcc" &> /dev/null
+	then
+		CC=tcc
+	else
+		echo "Error: Failed to find a compiler"
+		exit 1
+	fi
+fi
 
 if [ "$#" == 0 ]
 then
@@ -10,7 +30,7 @@ then
 
 	if [ ! -f "str.o" ]
 	then
-		echo "Please run ./build.sh with no arguments to build before installing"
+		echo "Error: Please run ./build.sh with no arguments to build before installing"
 	fi
 
 	echo "Checking for libx dirs"
@@ -32,7 +52,7 @@ elif [ "$1" == "example" ]
 then
 	if [ ! -f "str.o" ]
 	then
-		echo "Please run ./build.sh with no args to build before running example"
+		echo "Error: Please run ./build.sh with no args to build before running example"
 	fi
 
 	$CC -Wall -Wextra example.c str.o
