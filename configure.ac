@@ -1,7 +1,9 @@
 AC_INIT([xstr], [2.0.2], [https://github.com/lib-x/xstr/issues],,[https://github.com/lib-x/xstr])
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_PREREQ(2.69)
-AC_CONFIG_HEADERS([src/config.h:config.in])
+AC_CONFIG_HEADERS([src/config.h:src/config.in])
+AC_CONFIG_MACRO_DIRS([build-aux/m4])
 
 # $VERSION is assigned by AC_INIT (above), using the second argument
 XSTR_MAJOR_VERSION=[`expr $VERSION : '\([0-9][0-9]*\)'`]
@@ -20,9 +22,7 @@ AC_SUBST(XSTR_MICRO_VERSION)
 AX_CHECK_ENABLE_DEBUG([yes])
 
 AC_PROG_CC
-AC_CONFIG_MACRO_DIRS([m4])
 AC_PROG_INSTALL
-AC_HEADER_STDBOOL
 
 # Use libtool to create shared library
 LT_INIT
