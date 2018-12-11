@@ -1,2 +1,9 @@
 str.o
 a.out
+*~
+
+# generated when autoreconf -ivf is run.
+autom4te.cache/
+
+# separate directory for VPATH builds
+build/
