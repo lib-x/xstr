@@ -18,7 +18,7 @@ xstr is a library for managing and manipulating dynamic strings in a simple way.
 
 -  You don't have libc available
 -  You're using a custom allocator
--  You're have no allocator
+-  You have no allocator
 -  You need *really* high performance
 -  You're a programming-masochist
 -  You're using Python
