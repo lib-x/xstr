@@ -220,9 +220,9 @@ Initializes an xstring
 ----
 
 ```c
-x_error_t str_init_set_n(xstr_t * dest, char * src, size_t len);
+x_error_t str_init_set_n(xstr_t * dest, char * src, size_t src_len);
 ```
-Initializes and sets an xstring to `src`, assuming `src` is `len` chars long
+Initializes and sets an xstring to `src`, assuming `src` is `src_len` chars long
 
 ----
 
@@ -248,9 +248,9 @@ Append an xstring to an xstring
 ----
 
 ```c
-x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t len);
+x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t src_len);
 ```
-Appends a C-string that is `len` chars long into an xstring.
+Appends a C-string that is `src_len` chars long into an xstring.
 
 ----
 
@@ -261,9 +261,9 @@ Inserts an xstring into another xstring at specified index
 ---
 
 ```c
-x_error_t xstr_insert_c_n(xstr_t dest, char * src, size_t index, size_t len);
+x_error_t xstr_insert_c_n(xstr_t dest, char * src, size_t index, size_t src_len);
 ```
-Inserts a C-string that is `len` chars long into an xstring at specified index
+Inserts a C-string that is `src_len` chars long into an xstring at specified index
 
 ----
 
@@ -277,7 +277,7 @@ Deletes part of an xstring. (from index of start until end)
 ```c
 x_error_t xstr_push(xstr_t dest, char ch);
 ```
-Appends a character to an xstring
+Appends a single character to an xstring
 
 ----
 
