@@ -40,12 +40,13 @@ cp /tmp/xstr/src/* deps/xstr/
 
 ### If you like this lib enough to install it everywhere
 
-```bash
-git clone https://github.com/the-sushi/xstr.git
-cd xstr
-./build.sh
-./build.sh install
-```
+    git clone https://github.com/the-sushi/xstr.git
+    cd xstr
+    mkdir build
+    cd build
+    ../configure [--help]
+    make
+    (optionally) make install
 
 ## Example:
 
