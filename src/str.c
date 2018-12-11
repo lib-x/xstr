@@ -53,10 +53,8 @@ x_error_t xstr_init_set_n(xstr_t * dest, char * src, size_t src_len)
 		return e;
 	}
 
-	if (str->val != NULL)
-	{
-		strncpy(str->val, src, src_len);
-	}
+	strncpy(str->val, src, src_len);
+	str->val[str->len] = 0;
 
 	*dest = (xstr_t) str;
 
@@ -128,6 +126,8 @@ x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t src_len)
 	_dest->len = src_len;
 	_dest->cap = src_len;
 
+	_dest->val[_dest->len] = 0;
+
 	return XE_NONE;
 }
 
@@ -190,6 +190,7 @@ x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t src_len)
 
 	strncat(_dest->val, src, src_len);
 	_dest->len = src_len + _dest->len;
+	_dest->val[_dest->len] = 0;
 
 	return XE_NONE;
 }
