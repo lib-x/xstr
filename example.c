@@ -14,8 +14,8 @@ int main(void)
 	if (error != XE_NONE)
 		return 1;
 
-
 	printf("Before substitution: %s\n", *thing);
+
 
 	error = xstr_delete(thing, 0, 4);
 	if (error != XE_NONE)
@@ -35,7 +35,6 @@ int main(void)
 		return 1;
 
 	printf("After push: %s\n", *thing);
-
 	printf("Len: %lu\n", xstrlen(thing));
 
 	return 0;

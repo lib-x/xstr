@@ -11,11 +11,6 @@
 x_error_t xstr_init(xstr_t * dest, size_t size)
 {
 	struct _xstr_s * str;
- 
-	if (size == SIZE_MAX)
-	{
-		return XE_OVERFLOW;
-	}
 
 	str = malloc(sizeof (*str));
 	X_CHECK_ALLOC(str);
@@ -54,7 +49,7 @@ x_error_t xstr_init_set_n(xstr_t * dest, char * src, size_t src_len)
 	}
 
 	strncpy(str->val, src, src_len);
-	str->val[str->len] = 0;
+	str->len = src_len;
 
 	*dest = (xstr_t) str;
 
@@ -71,8 +66,6 @@ x_error_t xstr_cpy(xstr_t dest, xstr_t src)
 
 	if (_src == NULL || _dest == NULL)
 		return XE_ISNULL;
-	if (_src->len == SIZE_MAX)
-		return XE_OVERFLOW;
 
 	if (_dest->cap < _src->len)
 	{
@@ -103,8 +96,6 @@ x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t src_len)
 
 	if (dest == NULL)
 		return XE_ISNULL;
-	if (src_len == SIZE_MAX)
-		return XE_OVERFLOW;
 
 	if (_dest->cap < src_len)
 	{
@@ -122,11 +113,9 @@ x_error_t xstr_cpy_c_n(xstr_t dest, char * src, size_t src_len)
 	}
 
 	strncpy(_dest->val, src, src_len);
+	_dest->val[src_len + 1] = 0;
 
 	_dest->len = src_len;
-	_dest->cap = src_len;
-
-	_dest->val[_dest->len] = 0;
 
 	return XE_NONE;
 }
@@ -189,8 +178,8 @@ x_error_t xstr_cat_c_n(xstr_t dest, char * src, size_t src_len)
 	}
 
 	strncat(_dest->val, src, src_len);
-	_dest->len = src_len + _dest->len;
-	_dest->val[_dest->len] = 0;
+	_dest->len += src_len;
+	_dest->val[_dest->len + 1] = 0;
 
 	return XE_NONE;
 }
@@ -337,16 +326,11 @@ x_error_t xstr_push(xstr_t dest, char ch)
 
 	_dest = (struct _xstr_s *) dest;
 
-	if (_dest->len == SIZE_MAX)
-	{
-		return XE_OVERFLOW;
-	}
-
 	if (_dest->cap > _dest->len + 1)
 	{
+		_dest->val[_dest->len + 1] = ch;
+		_dest->val[_dest->len + 2] = 0;
 		_dest->len++;
-		_dest->val[_dest->len - 1] = ch;
-		_dest->val[_dest->len] = 0;
 		return XE_NONE;
 	}
 
@@ -372,9 +356,9 @@ x_error_t xstr_push(xstr_t dest, char ch)
 
 	_dest->val = tmp;
 
+	_dest->val[_dest->len + 1] = ch;
+	_dest->val[_dest->len + 2] = 0;
 	_dest->len++;
-	_dest->val[_dest->len - 1] = ch;
-	_dest->val[_dest->len] = 0;
 
 	return XE_NONE;
 }
