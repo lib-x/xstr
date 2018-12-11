@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <string.h>
-#include "config.h"
 
 /* Types and stuff */
 struct _xstr_s

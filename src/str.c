@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <limits.h>
+#include "config.h"
 
 #define X_CHECK_ALLOC(x)    do { if (x == NULL) {return XE_ALLOC;} } while (0)
 
