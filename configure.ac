@@ -3,6 +3,13 @@ AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_PREREQ(2.69)
 AC_CONFIG_HEADERS([src/config.h:config.in])
 
+XSTR_MAJOR_VERSION=[`expr $VERSION : '\([0-9][0-9]*\)'`]
+AC_SUBST(XSTR_MAJOR_VERSION)
+XSTR_MINOR_VERSION=[`expr $VERSION : '[0-9][0-9]*\.\([0-9][0-9]*\)'`]
+AC_SUBST(XSTR_MINOR_VERSION)
+XSTR_MICRO_VERSION=[`expr $VERSION : '[0-9][0-9]*\.[0-9][0-9]*\.\([0-9][0-9]*\)'`]
+AC_SUBST(XSTR_MICRO_VERSION)
+
 # Don't add -g and -O2 by default
 : ${CFLAGS=""}
 
