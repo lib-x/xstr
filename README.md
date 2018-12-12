@@ -48,6 +48,11 @@ cp /tmp/xstr/src/* deps/xstr/
     make
     (optionally) make install
     
+**Note**: BSD users may need to install the *gcc* package and change
+the `configure` command:
+
+    `CC=egcc ../configure`
+
 ### Build example.c
 
 From the build directory:
