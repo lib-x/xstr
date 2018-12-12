@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Public%20Domain-brightgreen.svg?style=flat)](https://github.com/lib-x/xstr/blob/master/LICENSE)
 [![CodeFactor](https://www.codefactor.io/repository/github/lib-x/xstr/badge)](https://www.codefactor.io/repository/github/lib-x/xstr)
+[![Build Status](https://travis-ci.com/lib-x/xstr.svg?branch=master)](https://travis-ci.com/lib-x/xstr)
 
 ## What is this:
 
