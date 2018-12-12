@@ -9,4 +9,4 @@ Version: @VERSION@
 Requires:
 Libs.private: @LIBS@
 Libs: -L${libdir} -lxstr
-Cflags: -I${includedir} -I${includedir}/xstr
+Cflags: -I${includedir}
