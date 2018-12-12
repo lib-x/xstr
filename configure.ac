@@ -24,6 +24,8 @@ AX_CHECK_ENABLE_DEBUG([yes])
 AC_PROG_CC
 AC_PROG_INSTALL
 
+AC_CHECK_FUNC( [strdup], [AC_DEFINE( [HAVE_STRDUP], [1], [Defined if strdup is present] )] )
+
 # Use libtool to create shared library
 LT_INIT
 

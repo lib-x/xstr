@@ -9,6 +9,28 @@
 
 #define X_CHECK_ALLOC(x)    do { if (x == NULL) {return XE_ALLOC;} } while (0)
 
+#ifndef HAVE_STRDUP
+char * strdup(const char * str)
+{
+	int len;
+	char * buf;
+
+	if (str == NULL) return NULL;
+
+	len = strlen(str) + 1;
+	buf = malloc(len);
+
+	if (buf)
+	{
+		memcpy(buf, str, len);
+	}
+
+	return buf;
+}
+#define HAVE_STRDUP
+#endif
+
+
 x_error_t xstr_init(xstr_t * dest, size_t size)
 {
 	struct _xstr_s * str;

@@ -1,4 +1,4 @@
-AM_CFLAGS = -std=c90 -pedantic -Wall -Wextra
+AM_CFLAGS = -std=c89 -pedantic -Wall -Wextra
 
 lib_LTLIBRARIES = libxstr.la
 
