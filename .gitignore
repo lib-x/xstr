@@ -1,8 +1,8 @@
 *.o
 a.out
 *~
-/.deps
-/.dirstamp
+*/.deps
+*/.dirstamp
 
 # generated when autoreconf -ivf is run.
 autom4te.cache/
