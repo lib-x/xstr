@@ -1,6 +1,6 @@
 AC_INIT([xstr], [2.0.2], [https://github.com/lib-x/xstr/issues],,[https://github.com/lib-x/xstr])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_INIT_AUTOMAKE([subdir-objects foreign])
+AM_INIT_AUTOMAKE([subdir-objects foreign no-dependencies])
 AC_PREREQ(2.69)
 AC_CONFIG_HEADERS([src/config.h:src/config.in])
 AC_CONFIG_MACRO_DIRS([build-aux/m4])
