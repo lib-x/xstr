@@ -9,6 +9,8 @@
 
 #define X_CHECK_ALLOC(x)    do { if (x == NULL) {return XE_ALLOC;} } while (0)
 
+char * strdup(const char * str);
+
 #ifndef HAVE_STRDUP
 char * strdup(const char * str)
 {

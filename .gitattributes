@@ -1,5 +1,5 @@
 build-aux/*  linguist-generated
 .github/*    linguist-documentation
-configur*    linguist-generated
+configure    linguist-generated
 *.in         linguist-generated
 *.m4         linguist-generated
