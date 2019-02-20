@@ -2,7 +2,7 @@
 	"name" : "xstr",
 	"version" : "0.2.2",
 	"repo" : "lib-x/xstr",
-	"description" : "A simple, public-domain string library",
+	"description" : "A simple public-domain string library",
 	"keywords" : ["xstr", "string", "str", "strings", "list", "simple", "utilities", "utility", "util", "utils"],
 	"license" : "Unlicense",
 	"src" : ["src/str.c", "src/str.h"]
